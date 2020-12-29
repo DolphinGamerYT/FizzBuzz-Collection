@@ -1,5 +1,5 @@
+import time
 from os import system, name
-from chronometer import Chronometer
 
 
 def is_multiplier(num: int, multiplier: int) -> bool:
@@ -53,9 +53,12 @@ def clear() -> None:
 if __name__ == '__main__':
     num = get_input()
     print("\n")
-    with Chronometer() as t1:
-        process_fizzbuzz_old(num)
-    with Chronometer() as t2:
-        process_fizzbuzz(num)
-    print("\nOld method took me {:.3f} seconds!".format(float(t1)))
-    print("New method took me {:.3f} seconds!".format(float(t2)))
+
+    start_time = time.time()
+    process_fizzbuzz_old(num)
+    middle_time = time.time()
+    process_fizzbuzz(num)
+    end_time = time.time()
+
+    print("\nOld method took me {:.3f} seconds!".format(float(middle_time - start_time)))
+    print("New method took me {:.3f} seconds!".format(float(end_time - middle_time)))
