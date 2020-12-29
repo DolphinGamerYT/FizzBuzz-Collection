@@ -1,4 +1,5 @@
 from os import system, name
+from chronometer import Chronometer
 
 
 def is_multiplier(num: int, multiplier: int) -> bool:
@@ -6,6 +7,21 @@ def is_multiplier(num: int, multiplier: int) -> bool:
 
 
 def process_fizzbuzz(num: int) -> None:
+    for x in range(1, num+1):
+        out = ""
+
+        if is_multiplier(x, 3):
+            out += "Fizz"
+        elif is_multiplier(x, 5):
+            out += "Buzz"
+        
+        if out == '':
+            print(x)
+        else:
+            print(out)
+
+
+def process_fizzbuzz_old(num: int) -> None:
     for x in range(1, num+1):
         if is_multiplier(x, 3) and is_multiplier(x, 5):
             print("FizzBuzz")
@@ -37,4 +53,9 @@ def clear() -> None:
 if __name__ == '__main__':
     num = get_input()
     print("\n")
-    process_fizzbuzz(num)
+    with Chronometer() as t1:
+        process_fizzbuzz_old(num)
+    with Chronometer() as t2:
+        process_fizzbuzz(num)
+    print("\nOld method took me {:.3f} seconds!".format(float(t1)))
+    print("New method took me {:.3f} seconds!".format(float(t2)))
